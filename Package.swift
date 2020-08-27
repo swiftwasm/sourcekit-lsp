@@ -25,6 +25,7 @@ let package = Package(
       .target(
         name: "sourcekit-lsp",
         dependencies: [
+          "ArgumentParser",
           "LanguageServerProtocolJSONRPC",
           "SourceKit",
           "SwiftToolsSupport-auto",
@@ -202,11 +203,13 @@ if getenv("SWIFTCI_USE_LOCAL_DEPS") == nil {
     .package(url: "https://github.com/apple/indexstore-db.git", .branch("master")),
     .package(url: "https://github.com/apple/swift-package-manager.git", .branch("master")),
     .package(url: "https://github.com/apple/swift-tools-support-core.git", .branch("master")),
+    .package(url: "https://github.com/apple/swift-argument-parser.git", .upToNextMinor(from: "0.3.0")),
   ]
 } else {
   package.dependencies += [
     .package(path: "../indexstore-db"),
     .package(path: "../swiftpm"),
     .package(path: "../swiftpm/swift-tools-support-core"),
+    .package(path: "../swift-argument-parser")
   ]
 }
