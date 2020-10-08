@@ -142,8 +142,6 @@ struct Main: ParsableCommand {
     serverOptions.clangdOptions = clangdOptions
     serverOptions.indexOptions.indexStorePath = indexStorePath
     serverOptions.indexOptions.indexDatabasePath = indexDBPath
-    serverOptions.completionOptions.serverSideFiltering = completionServerSideFiltering
-    serverOptions.completionOptions.maxResults = completionMaxResults
 
     return serverOptions
   }
