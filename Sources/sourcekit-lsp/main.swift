@@ -11,7 +11,7 @@
 //===----------------------------------------------------------------------===//
 
 import ArgumentParser
-import Csourcekitd // Not needed here, but fixes debugging...
+import sourcekitd // Not needed here, but fixes debugging...
 import Dispatch
 import Foundation
 import LanguageServerProtocol
