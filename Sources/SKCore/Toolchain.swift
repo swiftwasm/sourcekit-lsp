@@ -145,21 +145,29 @@ extension Toolchain {
     }
 
     // If 'currentPlatform' is nil it's most likely an unknown linux flavor.
-    let dylibExt = Platform.currentPlatform?.dynamicLibraryExtension ?? "so"
+    let dylibExt = Platform.currentPlatform?.dynamicLibraryExtension ?? ".so"
 
     let sourcekitdPath = libPath.appending(components: "sourcekitd.framework", "sourcekitd")
     if fs.isFile(sourcekitdPath) {
       self.sourcekitd = sourcekitdPath
       foundAny = true
     } else {
-      let sourcekitdPath = libPath.appending(component: "libsourcekitdInProc.\(dylibExt)")
+#if os(Windows)
+      let sourcekitdPath = binPath.appending(component: "sourcekitdInProc\(dylibExt)")
+#else
+      let sourcekitdPath = libPath.appending(component: "libsourcekitdInProc\(dylibExt)")
+#endif
       if fs.isFile(sourcekitdPath) {
         self.sourcekitd = sourcekitdPath
         foundAny = true
       }
     }
 
-    let libIndexStore = libPath.appending(components: "libIndexStore.\(dylibExt)")
+#if os(Windows)
+    let libIndexStore = binPath.appending(components: "libIndexStore\(dylibExt)")
+#else
+    let libIndexStore = libPath.appending(components: "libIndexStore\(dylibExt)")
+#endif
     if fs.isFile(libIndexStore) {
       self.libIndexStore = libIndexStore
       foundAny = true

@@ -161,7 +161,7 @@ struct Main: ParsableCommand {
 
     let clientConnection = JSONRPCConnection(
       protocol: MessageRegistry.lspProtocol,
-      inFD: STDIN_FILENO,
+      inFD: fileno(stdin),
       outFD: realStdout,
       syncRequests: syncRequests
     )
@@ -177,10 +177,6 @@ struct Main: ParsableCommand {
       // Use _Exit to avoid running static destructors due to SR-12668.
       _Exit(0)
     })
-
-    Logger.shared.addLogHandler { message, _ in
-      clientConnection.send(LogMessageNotification(type: .log, message: message))
-    }
 
     dispatchMain()
   }
